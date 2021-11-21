@@ -22,6 +22,7 @@ class CCDomainDetection(PluginBase):
             "socket",
             "InternetUrlOpenA",
             "Open",
+            "HttpSendRequestA",
         ]
 
     def simprocedure(self, state: angr.SimState):
@@ -35,6 +36,7 @@ class CCDomainDetection(PluginBase):
             log.debug("Reached a syscall SimProcedure")
             return
         proc_name = proc.display_name
+        #log.debug(f"TRACKING: SimProcedure call:{proc_name}")
 
         if proc_name not in self.functions_monitored:
             return
@@ -54,3 +56,8 @@ class CCDomainDetection(PluginBase):
                 log.info(
                     f"Detected possible C&C Domain: {proc.arg(1)} with DoC {state.doc.concreteness:.2f}"
                 )
+
+        if proc_name == "HttpSendRequestA":
+            log.info(
+                f"Detected possible unknown external C&C with DoC {state.doc.concreteness:.2f}"
+            )

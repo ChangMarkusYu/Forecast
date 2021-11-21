@@ -40,6 +40,18 @@ class HttpOpenRequestW(HttpOpenRequest):
     pass
 
 
+class HttpSendRequestA(NetFnReturnsHandle):
+    """
+    This doesn't really do anything. It exists so that we can extract arguments
+    """
+
+    def __init__(self, project: angr.Project):
+        super().__init__(project=project, num_args=5)
+
+    def run(self, hRequest, lpszHeaders, dwHeadersLength, lpOptional, dwOptionalLength):
+        return
+
+
 class InternetOpen(NetFnReturnsHandle):
     """
     This doesn't really do anything. It exists to specify the calling convention
