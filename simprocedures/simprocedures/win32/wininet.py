@@ -32,14 +32,31 @@ class HttpOpenRequest(NetFnReturnsHandle):
         return self.return_handle()
 
 
-class HttpOpenRequestA(HttpOpenRequest):
-    pass
+class HttpOpenRequestA(NetFnReturnsHandle):
+    """
+    This doesn't really do anything. It exists so that we can extract arguments
+     """
+
+    def __init__(self, project: angr.Project):
+        super().__init__(project=project, num_args=8)
+
+    def run(self, hConnect, lpszVerb, lpszObjectName, lpszVersion, lpszReferrer, lplpszAcceptTypes, dwFlags, dwContext):
+        return
 
 
 class HttpOpenRequestW(HttpOpenRequest):
     pass
+    """
+    This doesn't really do anything. It exists so that we can extract arguments
 
 
+    def __init__(self, project: angr.Project):
+        super().__init__(project=project, num_args=8)
+
+    def run(self, hConnect, lpszVerb, lpszObjectName, lpszVersion, lpszReferrer, lplpszAcceptTypes, dwFlags, dwContext):
+        return
+
+"""
 class HttpSendRequestA(NetFnReturnsHandle):
     """
     This doesn't really do anything. It exists so that we can extract arguments
@@ -104,8 +121,16 @@ class InternetConnect(NetFnReturnsHandle):
         return self.return_handle()
 
 
-class InternetConnectA(InternetConnect):
-    pass
+class InternetConnectA(NetFnReturnsHandle):
+    """
+    This doesn't really do anything. It exists so that we can extract arguments
+    """
+
+    def __init__(self, project: angr.Project):
+        super().__init__(project=project, num_args=8)
+
+    def run(self, hInternet, lpszServerName, nServerPort, lpszUserName, lpszPassword, dwService, dwFlags, dwContext):
+        return self.return_handle()
 
 
 class InternetConnectW(InternetConnect):
