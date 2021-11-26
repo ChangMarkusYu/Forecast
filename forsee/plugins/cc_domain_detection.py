@@ -23,6 +23,8 @@ class CCDomainDetection(PluginBase):
             "InternetUrlOpenA",
             "Open",
             "HttpSendRequestA",
+            "HttpOpenRequestA",
+            "InternetConnectA",
         ]
 
     def simprocedure(self, state: angr.SimState):
@@ -61,3 +63,13 @@ class CCDomainDetection(PluginBase):
             log.info(
                 f"Detected possible unknown external C&C with DoC {state.doc.concreteness:.2f}"
             )
+            
+        if proc_name == "HttpOpenRequestA":
+            log.info(
+                f"Detected possible C&C domain: {proc.arg(0)} {state.doc.concreteness:.2f}"
+            )
+        if proc_name == "InternetConnectA":
+            log.info(
+                f"Detected possible C&C domain: {proc.arg(1)} {state.doc.concreteness:.2f}"
+            )
+        
